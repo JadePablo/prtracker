@@ -1,6 +1,17 @@
 import { Schema, model, models } from 'mongoose';
 import Gym from './gym';
 
+/*
+PrSchema breakdown:
+
+lift (string)
+weight (number)
+location (ObjectId to the 'gyms' table)
+lifter (string)
+date (auto-generated date)
+verified(boolean)
+
+*/
 const PrSchema = new Schema({
   lift: {
     type: String,
@@ -21,15 +32,7 @@ const PrSchema = new Schema({
     required: true
   },
   location: {
-    type: Schema.Types.ObjectId,
-    ref: "gyms",
-    validate: {
-      validator: async function (value) {
-        const gym = await Gym.findById(value);
-        return !!gym;
-      },
-      message: "Invalid gym location"
-    }
+    type: String
   },
   lifter: {
     type: String
@@ -37,6 +40,9 @@ const PrSchema = new Schema({
   date: {
     type: Date,
     default: Date.now
+  },
+  verified: {
+    type: Boolean
   }
 });
 

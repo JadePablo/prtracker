@@ -1,3 +1,6 @@
+"use client";
+
+import GymFeed from "@components/GymFeed";
 
 
 
