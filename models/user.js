@@ -1,6 +1,6 @@
 import { Schema, model, models} from 'mongoose';
 
-
+//adjust prSc
 const UserSchema = new Schema({
     email: {
         type:String,
@@ -16,7 +16,7 @@ const UserSchema = new Schema({
         type: String,
     },
     prs: [
-        {type:Schema.Types.ObjectId,ref:'prSchema'}
+        {type:Schema.Types.ObjectId,ref:'prs'}
     ],
 });
 
