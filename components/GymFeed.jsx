@@ -4,8 +4,8 @@ import { Container ,Grid} from '@mui/material';
 import { useEffect, useState } from 'react';
 import GymCard from './GymCard';
 
-
 const GymFeed = () => {
+
   const [gyms, setGyms] = useState([]);
   useEffect(() => {
     const fetchGyms = async () => {

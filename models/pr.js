@@ -42,7 +42,8 @@ const PrSchema = new Schema({
     default: Date.now
   },
   verified: {
-    type: Boolean
+    type: Boolean,
+    default: false
   }
 });
 

@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
-import { Container, Typography } from '@mui/material';
+import { Container, Typography, Grid } from '@mui/material';
+import PrCard from './PrCard';
 
 const Profile = () => {
   const { data: session } = useSession();
@@ -22,23 +23,16 @@ const Profile = () => {
     <Container>
       {session?.user && (
         <Container>
-          <Typography variant="h6" component="h2">
-            User: {session.user.name}
-          </Typography>
-          <Typography variant="body1" component="p">
-            Email: {session.user.email}
-          </Typography>
+          <Container sx={{ backgroundColor: 'black', marginTop: '2rem'}}>
+            <Typography sx={{ color: 'white' }}>your prs.</Typography>
+          </Container>
+          {userPrs.map((pr) => (
+            <Grid fullWidth="true" item sx={{ margin: '1em' }} key={pr._id} xs={12} sm={6} md={6}>
+              <PrCard lifter={pr.lifter} weight={pr.weight} date={pr.date} />
+            </Grid>
+          ))}
         </Container>
       )}
-
-      <Container>
-        <Typography>Use the user's email to display their PRs</Typography>
-        {userPrs.map((pr) => (
-          <Typography key={pr._id} variant="body1" component="p">
-            {pr.lift} - {pr.weight} - {pr.location}
-          </Typography>
-        ))}
-      </Container>
     </Container>
   );
 };
