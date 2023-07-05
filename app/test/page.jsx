@@ -41,11 +41,11 @@ export default function Home() {
     }
 
     formData.append('upload_preset', 'prs_preset');
-
-    const data = await fetch('https://api.cloudinary.com/v1_1/prtracker/video/upload', {
-      method: 'POST',
-      body: formData
-    }).then(r => r.json());
+    
+    // const data = await fetch('https://api.cloudinary.com/v1_1/prtracker/video/upload', {
+    //   method: 'POST',
+    //   body: formData
+    // }).then(r => r.json());
 
     setImageSrc(data.secure_url);
     setUploadData(data);

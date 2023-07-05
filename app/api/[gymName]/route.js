@@ -15,7 +15,7 @@ export const GET = async (request, { params }) => {
     if (!gym) {
       return new Response("Gym not found", { status: 404 });
     }
-
+    
     // Fetch all Pr documents where location is equal to the gym's _id
     const prs = await Pr.find({ location: gym._id });
 
