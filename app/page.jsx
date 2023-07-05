@@ -1,3 +1,5 @@
+"use client";
+
 import GymFeed from "@components/GymFeed";
 import HomepageFooter from "@components/HomepageFooter";
 

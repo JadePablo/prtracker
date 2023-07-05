@@ -1,8 +1,10 @@
 "use client";
 
-import { Container ,Grid,Typography} from '@mui/material';
+import { Container ,Grid} from '@mui/material';
 import { useEffect, useState } from 'react';
 import GymCard from './GymCard';
+
+
 const GymFeed = () => {
   const [gyms, setGyms] = useState([]);
   useEffect(() => {
