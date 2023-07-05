@@ -5,21 +5,37 @@ import PrFeed from '@components/PrFeed';
 import { usePathname } from 'next/navigation';
 import PrForm from '@components/Form';
 import { useSession } from 'next-auth/react';
+import { Container, Typography } from '@mui/material';
 
 const GymHomePage = () => {
+  
   const pathname = usePathname();
   const { data: session } = useSession();
 
   return (
-    <div>
-      <p>You selected this gym: {pathname.slice(1)}</p>
+    <Container>
+      <Container
+        sx={{
+          backgroundColor: 'black',
+          color: 'white',
+          marginTop: '1rem',
+          padding: '1rem',
+        }}
+      >
+        <Typography>
+          {pathname.slice(1)}
+        </Typography>
+      </Container>
+
       {session?.user ? (
         <PrForm />
       ) : (
-        <p>You must be logged in to submit a PR.</p>
+        <Typography>
+          You must be logged in to submit a PR.
+        </Typography>
       )}
       <PrFeed />
-    </div>
+    </Container>
   );
 };
 

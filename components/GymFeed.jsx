@@ -22,7 +22,7 @@ const GymFeed = () => {
         {
           gyms.map(gym => {
             return(
-                <Grid fullWidth="true" item sx={{margin:"1em"}}key={gym._id} xs={12} sm={6} md={6}>
+                <Grid item sx={{margin:"1em"}}key={gym._id} xs={12} sm={6} md={6}>
                     <GymCard gymName={gym.gymName} location={gym.location}/>
                 </Grid>
             )

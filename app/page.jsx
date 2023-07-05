@@ -1,17 +1,20 @@
 "use client";
 
+import React from "react";
+import { Container } from "@mui/material";
 import GymFeed from "@components/GymFeed";
 import HomepageFooter from "@components/HomepageFooter";
+import Welcome from "@components/Welcome";
 
 const Home = () => {
   return (
-    <div>
-        <h1>Homepage</h1>
-        <h2>put list of verified gyms here</h2>
-        <GymFeed />
-        <HomepageFooter />
-    </div>
+    <Container maxWidth="md" sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      <Welcome />
+      <GymFeed />
+      <HomepageFooter sx={{ marginTop: 'auto' }} />
+
+    </Container>
   )
 }
 
-export default Home
+export default Home;

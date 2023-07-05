@@ -1,13 +1,13 @@
-import { Container,Typography } from '@mui/material';
+import { Container, Typography } from '@mui/material';
 
 const HomepageFooter = () => {
   return (
-    <Container>
-        <Typography>
-            want to add your gym? email me @ *insert email here* , with necessary details to prove you are an employee.
-        </Typography>
+    <Container sx={{ backgroundColor: 'black' }}>
+      <Typography sx={{ color: 'white' }}>
+        want to add your gym? email me @ *insert email here* i'll follow up.
+      </Typography>
     </Container>
   )
 }
 
-export default HomepageFooter
+export default HomepageFooter;
