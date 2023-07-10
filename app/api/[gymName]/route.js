@@ -45,17 +45,10 @@ export const POST = async (request, { params }) => {
     newPr.location = gym._id;
 
     // Save the new Pr document to the database
-    const savedPr = await newPr.save();
-    // Add the _id of the new Pr to the undecided_prs array of the gym
-    
+    const savedPr = await newPr.save();    
 
     return new Response(JSON.stringify(savedPr), { status: 201 });
   } catch (error) {
     return new Response("Failed to create Pr document", { status: 500 });
   }
-};
-
-//add the new pr 
-export const PATCH = async (request, { params }) => {
-  // PATCH function code...
 };
