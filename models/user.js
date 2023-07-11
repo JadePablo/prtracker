@@ -8,9 +8,6 @@ const UserSchema = new Schema({
     },
     image: {
         type: String
-    },
-    prs: {
-        type: [String] // Specify that `prs` is an array of strings
     }
 });
 

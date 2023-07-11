@@ -37,18 +37,20 @@ export default function Home() {
     const formData = new FormData();
 
     for ( const file of fileInput.files ) {
+      console.log(file);
       formData.append('file', file);
     }
 
-    formData.append('upload_preset', 'prs_preset');
-    
+    // formData.append('upload_preset', 'prs_preset');
+
     // const data = await fetch('https://api.cloudinary.com/v1_1/prtracker/video/upload', {
     //   method: 'POST',
     //   body: formData
     // }).then(r => r.json());
 
-    setImageSrc(data.secure_url);
-    setUploadData(data);
+    // console.log(data.url);
+    // setImageSrc(data.secure_url);
+    // setUploadData(data);
   }
 
   return (

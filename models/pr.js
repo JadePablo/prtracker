@@ -44,7 +44,10 @@ const PrSchema = new Schema({
   verified: {
     type: Boolean,
     default: false
-  }
+  },
+  source: {
+    type: String
+  },
 });
 
 const Pr = models.Pr || model("Pr", PrSchema);
