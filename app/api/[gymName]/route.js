@@ -17,7 +17,7 @@ export const GET = async (request, { params }) => {
     }
 
     // Fetch all Pr documents where location is equal to the gym's _id
-    const prs = await Pr.find({ location: gym.location });
+    const prs = await Pr.find({ location: gym.gymName });
 
     return new Response(JSON.stringify(prs), { status: 200 });
   } catch (error) {

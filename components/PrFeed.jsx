@@ -29,7 +29,7 @@ const PrFeed = () => {
           prs.map(pr => {
             return(
                 <Grid item sx={{margin:"1em"}}key={pr._id} xs={12} sm={6} md={6}>
-                    <PrCard lifter={pr.lifter} weight={pr.weight} date={pr.date} />
+                    <PrCard lift={pr.lift} lifter={pr.lifter} weight={pr.weight} date={pr.date} source={pr.source}/>
                 </Grid>
             )
           })
