@@ -10,7 +10,8 @@ import {
   Radio,
   FormControlLabel,
   Container,
-  Grid
+  Grid,
+  CircularProgress
 } from '@mui/material';
 import { usePathname } from 'next/navigation';
 import { useSession } from 'next-auth/react';
@@ -22,8 +23,10 @@ function PrForm() {
 
   const [showPrompt, setShowPrompt] = useState(false);
   const [video,setVideo] = useState(null);
+  const [loading,setLoading] = useState(false);
+
   const [formData, setFormData] = useState({
-    lifter: session.user.name, //get from session
+    lifter: session.user.email, //get from session
     lift: '', //form
     weight: 0, //form
     location: pathname.slice(1), //get from pathname

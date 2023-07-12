@@ -6,9 +6,8 @@ export const GET = async (request, { params }) => {
   try {
     await connectToDB();
 
-    const { email } = params;
-
-    const user_prs = await Pr.find({ lifter: email });
+    const {name} = params;
+    const user_prs = await Pr.find({ lifter: name });
 
     if (user_prs.length > 0) {
       return new Response(JSON.stringify(user_prs), { status: 200 });
