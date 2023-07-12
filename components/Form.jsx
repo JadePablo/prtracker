@@ -64,6 +64,8 @@ function PrForm() {
       return
     }
 
+    setLoading(true);
+
     //upload video to cloudinary here
     const url = await submitVideo(video);
     const updatedFormData = { ...formData, source: url };
@@ -72,7 +74,11 @@ function PrForm() {
       body: JSON.stringify(updatedFormData)
     })
     console.log(response);
-    // handle upload or further processing
+    
+
+    setLoading(false);
+
+    window.location.reload();
   }
 
   async function submitVideo(file) {
@@ -199,21 +205,25 @@ function PrForm() {
               </Typography>
             </Grid>
           )}
-        <Button
-          sx={{
-            marginBottom: '1em',
-            backgroundColor: '#333333',
-            color: 'white',
-            '&:hover': {
-              backgroundColor: 'white',
-              color: 'black'
-            }
-          }}
-          variant="contained"
-          onClick={handleSubmit}
-        >
-          Submit PR
-        </Button>
+        {loading ? (
+          <CircularProgress sx={{ alignSelf: 'center', marginBottom: '1em' }} />
+        ) : (
+          <Button
+            sx={{
+              marginBottom: '1em',
+              backgroundColor: '#333333',
+              color: 'white',
+              '&:hover': {
+                backgroundColor: 'white',
+                color: 'black'
+              }
+            }}
+            variant="contained"
+            onClick={handleSubmit}
+          >
+            Submit PR
+          </Button>
+        )}
       </Box>
     </Container>
   );
