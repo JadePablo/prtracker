@@ -12,10 +12,12 @@ const JudgingPanel = () => {
           const response = await fetch(`api/verify`);
           const data = await response.json();
           setPrsToVerify(data);
+          console.log(prsToVerify)
         };
     
         fetchPrs();
       }, []);
+
 
       async function handleBan() {
         const response = await fetch('api/verify/ban', {
@@ -23,7 +25,7 @@ const JudgingPanel = () => {
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ email: prsToVerify[0].lifterEmail }),
+            body: JSON.stringify({ email: prsToVerify[0].lifterEmail,id: prsToVerify[0]._id }),
           });
 
           if (response.status === 200) {
