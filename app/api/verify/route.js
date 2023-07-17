@@ -19,8 +19,6 @@ export const PATCH = async (request, { params }) => {
   try {
     await connectToDB();
     const { id, status } = await request.json();
-    console.log(id);
-    console.log(status);
 
     // Find the PR with the specified _id and update the verified value
     const updatedPr = await Pr.findByIdAndUpdate(id, { verified: status });

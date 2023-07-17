@@ -16,8 +16,8 @@ export const GET = async (request, { params }) => {
       return new Response("Gym not found", { status: 404 });
     }
 
-    // Fetch all Pr documents where location is equal to the gym's _id
-    const prs = await Pr.find({ location: gym.gymName });
+    // Fetch all Pr documents where location is equal to the gym's _id and verified is true
+    const prs = await Pr.find({ location: gym.gymName, verified: true });
 
     return new Response(JSON.stringify(prs), { status: 200 });
   } catch (error) {

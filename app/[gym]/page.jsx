@@ -18,7 +18,6 @@ const GymHomePage = () => {
         const response = await fetch(`api/getDomain/${pathname.slice(1)}`)
         const data = await response.json();
         setDomain(data.domain);
-        console.log(data.domain);
         
     };
 
