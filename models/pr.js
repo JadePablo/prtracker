@@ -48,6 +48,9 @@ const PrSchema = new Schema({
   source: {
     type: String
   },
+  lifterEmail: {
+    type: String
+  }
 });
 
 const Pr = models.Pr || model("Pr", PrSchema);

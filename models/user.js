@@ -8,6 +8,10 @@ const UserSchema = new Schema({
     },
     image: {
         type: String
+    },
+    banned: {
+        type: Boolean,
+        default: false
     }
 });
 

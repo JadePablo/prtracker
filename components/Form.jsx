@@ -35,7 +35,8 @@ function PrForm() {
     location: pathname.slice(1), //get from pathname
     date: currentDate, //default to today
     source: '', //form
-    verified: false //default to false
+    verified: false, //default to false
+    lifterEmail: session.user.email
   });
 
   function handleSetLift(e) {
