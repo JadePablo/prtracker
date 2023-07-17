@@ -3,19 +3,19 @@
 import React from 'react'
 import { Container ,Grid} from '@mui/material';
 import { useEffect, useState } from 'react';
-import { usePathname } from 'next/navigation';
+import { usePathname,redirect } from 'next/navigation';
 import PrCard from './PrCard';
 
 const PrFeed = () => {
 
     const [prs,setPrs] = useState([])
-    
     const pathname = usePathname();
 
     useEffect(() => {
         const fetchPrs = async () => {
             const response = await fetch(`api/${pathname.slice(1).replace(/%20/g, ' ')}`)
             const data = await response.json();
+
             setPrs(data);
             
         };
