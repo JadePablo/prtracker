@@ -78,25 +78,84 @@ const JudgingPanel = () => {
   }
 
   return (
-    <Container>
-      <Typography>PRs to verify: {prsToVerify.length}</Typography>
+    <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
+      <Typography sx={{ color: 'white', backgroundColor: 'black', textAlign: 'center', marginTop: '1em' }}>
+        PRs to verify: {prsToVerify.length}
+      </Typography>
       {prsToVerify.length > 0 ? (
         <>
-          <Box mt={2} mb={2}>
+          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2, mb: 2 }}>
             <video key={videoKey} width="320" height="240" controls>
               <source src={prsToVerify[0].source} type="video/mp4" />
             </video>
           </Box>
-          <Box mt={2} mb={2}>
-            <Button variant="contained" onClick={handleGood}>Good</Button>
-            <Button variant="contained" onClick={handleBad}>Bad</Button>
-            <Button variant="contained" onClick={handleBan}>Ban</Button>
+          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2, mb: 2 }}>
+            <Button
+              variant="contained"
+              onClick={handleGood}
+              sx={{
+                marginBottom: '1em',
+                backgroundColor: '#333333',
+                '&:hover': {
+                  backgroundColor: '#D16002',
+                },
+                color: 'white',
+                '&:hover': {
+                  backgroundColor: 'white',
+                  color: 'black',
+                },
+              }}
+            >
+              Good
+            </Button>
+            <Button
+              variant="contained"
+              onClick={handleBad}
+              sx={{
+                marginBottom: '1em',
+                backgroundColor: '#333333',
+                '&:hover': {
+                  backgroundColor: '#D16002',
+                },
+                color: 'white',
+                '&:hover': {
+                  backgroundColor: 'white',
+                  color: 'black',
+                },
+              }}
+            >
+              Bad
+            </Button>
+            <Button
+              variant="contained"
+              onClick={handleBan}
+              sx={{
+                marginBottom: '1em',
+                backgroundColor: '#333333',
+                '&:hover': {
+                  backgroundColor: '#D16002',
+                },
+                color: 'white',
+                '&:hover': {
+                  backgroundColor: 'white',
+                  color: 'black',
+                },
+              }}
+            >
+              Ban
+            </Button>
           </Box>
         </>
       ) : (
-        <Typography>No PRs to verify.</Typography>
+        <Typography sx={{ color: 'grey', fontSize: '2rem', textAlign: 'center', marginTop: '50vh', transform: 'translateY(-50%)' }}>
+        No PRs to verify.
+      </Typography>
       )}
-      {loading && <CircularProgress />}
+    {loading && (
+      <Box sx={{ marginTop: '2em' }}>
+        <CircularProgress />
+      </Box>
+    )}
     </Container>
   );
 };

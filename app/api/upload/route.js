@@ -8,7 +8,6 @@ export const POST = async (request, { params }) => {
 
       //get the info from the request body
       const {lifter,lift,weight,location,date,source,verified,lifterEmail} = await request.json();
-      console.log(lifterEmail);
       // Create a new Pr document with the provided data
      const newPr = new Pr({ lift, weight, location, lifter,date,verified,source, lifterEmail});
 
