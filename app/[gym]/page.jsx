@@ -15,8 +15,8 @@ const GymHomePage = () => {
 
   useEffect(() => {
     const fetchGym = async () => {
-        const response = await fetch(`api/getDomain/${pathname.slice(1)}`)
-        const data = await response.json();
+      const response = await fetch(`api/getDomain/${pathname.slice(1).replace(/%20/g, ' ')}`);
+      const data = await response.json();
         setDomain(data.domain);
         
     };

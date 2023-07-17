@@ -14,7 +14,7 @@ const PrFeed = () => {
 
     useEffect(() => {
         const fetchPrs = async () => {
-            const response = await fetch(`api/${pathname.slice(1)}`)
+            const response = await fetch(`api/${pathname.slice(1).replace(/%20/g, ' ')}`)
             const data = await response.json();
             setPrs(data);
             

@@ -4,7 +4,7 @@ const HomepageFooter = () => {
   return (
     <Container sx={{ backgroundColor: 'black' }}>
       <Typography sx={{ color: 'white' }}>
-        want to add your gym? email me @ *insert email here* i'll follow up.
+        want to add your gym? email me @ prtracker3030@gmail.com i'll follow up.
       </Typography>
     </Container>
   )
