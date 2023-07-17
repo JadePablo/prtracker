@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import React, {useEffect,useState} from 'react';
 import PrFeed from '@components/PrFeed';
 import { usePathname } from 'next/navigation';
 import PrForm from '@components/Form';
@@ -11,6 +11,24 @@ const GymHomePage = () => {
   
   const pathname = usePathname();
   const { data: session } = useSession();
+  const [domain,setDomain] = useState("");
+
+  useEffect(() => {
+    const fetchGym = async () => {
+        const response = await fetch(`api/getDomain/${pathname.slice(1)}`)
+        const data = await response.json();
+        setDomain(data.domain);
+        console.log(data.domain);
+        
+    };
+
+    fetchGym();
+},[])
+
+function hasDomain(email, domain) {
+  const domainExists = email.includes(domain);
+  return domainExists;
+}
 
   return (
     <Container>
@@ -27,13 +45,14 @@ const GymHomePage = () => {
         </Typography>
       </Container>
 
-      {session?.user ? (
+      {(session?.user && hasDomain(session?.user.email, domain)) ? (
         <PrForm />
       ) : (
         <Typography>
-          You must be logged in to submit a PR.
+          You must be logged in to submit a PR with an email that has '@{domain}' in it
         </Typography>
       )}
+
       <PrFeed />
     </Container>
   );

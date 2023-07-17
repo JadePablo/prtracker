@@ -15,6 +15,9 @@ import {
 } from '@mui/material';
 import { usePathname } from 'next/navigation';
 import { useSession } from 'next-auth/react';
+import setLift from '../form_helpers/setLift.js';
+import handleFileChange from '../form_helpers/handleFileChange';
+import handleSubmit from '../form_helpers/handleSubmit';
 
 function PrForm() {
   const { data: session } = useSession();
@@ -22,11 +25,11 @@ function PrForm() {
   const currentDate = new Date().toISOString().slice(0, 10); // Get current date in "YYYY-MM-DD" format
 
   const [showPrompt, setShowPrompt] = useState(false);
-  const [video,setVideo] = useState(null);
-  const [loading,setLoading] = useState(false);
+  const [video, setVideo] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
-    lifter: session.user.email, //get from session
+    lifter: session.user.name, //get from session
     lift: '', //form
     weight: 0, //form
     location: pathname.slice(1), //get from pathname
@@ -35,63 +38,17 @@ function PrForm() {
     verified: false //default to false
   });
 
-  function setLift(e) {
-    switch (e.target.value) {
-      case 'squat':
-        setFormData({ ...formData, lift: e.target.value });
-        break;
-      case 'deadlift':
-        setFormData({ ...formData, lift: e.target.value });
-        break;
-      case 'bench':
-        setFormData({ ...formData, lift: e.target.value });
-        break;
-      default:
-        setFormData({ ...formData, lift: '' });
-    }
+  function handleSetLift(e) {
+    setFormData(setLift(formData, e.target.value));
   }
 
-  function handleFileChange(e) {
-
-    const file = e.target.files[0];
-    setVideo(file);
+  function handleFileChangeWrapper(e) {
+    handleFileChange(setVideo, e);
   }
 
-  async function handleSubmit(e) {
+  async function handleSubmitWrapper(e) {
     e.preventDefault();
-    if (!formData.lift || formData.weight <= 0 || formData.weight >= 1500 || video === null) {
-      setShowPrompt(true);
-      return
-    }
-
-    setLoading(true);
-
-    //upload video to cloudinary here
-    const url = await submitVideo(video);
-    const updatedFormData = { ...formData, source: url };
-    const response = await fetch('api/upload',{
-      method:"POST",
-      body: JSON.stringify(updatedFormData)
-    })
-    console.log(response);
-    
-
-    setLoading(false);
-
-    window.location.reload();
-  }
-
-  async function submitVideo(file) {
-    console.log('submitting video...');
-    const videoData = new FormData();
-    videoData.append('file',file);
-    videoData.append('upload_preset','prs_preset');
-    const response = await fetch('https://api.cloudinary.com/v1_1/prtracker/video/upload', {
-      method: 'POST',
-      body: videoData
-    }).then(r => r.json());
-    
-    return response.url;
+    await handleSubmit(formData, setShowPrompt, video, setLoading);
   }
 
   return (
@@ -108,7 +65,7 @@ function PrForm() {
             value="squat"
             control={<Radio sx={{ color: 'white' }} />}
             label="Squat"
-            onClick={(e) => setLift(e)}
+            onClick={(e) => handleSetLift(e)}
           />
           <FormControlLabel
             checked={formData.lift === 'bench'}
@@ -116,7 +73,7 @@ function PrForm() {
             value="bench"
             control={<Radio sx={{ color: 'white' }} />}
             label="Bench"
-            onClick={(e) => setLift(e)}
+            onClick={(e) => handleSetLift(e)}
           />
           <FormControlLabel
             checked={formData.lift === 'deadlift'}
@@ -124,7 +81,7 @@ function PrForm() {
             value="deadlift"
             control={<Radio sx={{ color: 'white' }} />}
             label="Deadlift"
-            onClick={(e) => setLift(e)}
+            onClick={(e) => handleSetLift(e)}
           />
         </RadioGroup>
         {formData.lift === '' && (
@@ -148,8 +105,8 @@ function PrForm() {
           )}
         </Container>
 
-          {video != null  ? (
-            <Button 
+        {video != null ? (
+          <Button
             sx={{
               marginBottom: '1em',
               backgroundColor: '#333333',
@@ -163,16 +120,16 @@ function PrForm() {
               },
             }}
             variant="contained" component="label">
-              Replace video of PR
-              <input
-                hidden
-                type="file"
-                onChange={handleFileChange}
-                accept=".mov,.mp4"
-              />
-            </Button>
-          ) : (
-            <Button
+            Replace video of PR
+            <input
+              hidden
+              type="file"
+              onChange={handleFileChangeWrapper}
+              accept=".mov,.mp4"
+            />
+          </Button>
+        ) : (
+          <Button
             sx={{
               marginBottom: '1em',
               backgroundColor: '#333333',
@@ -185,26 +142,26 @@ function PrForm() {
                 color: 'black',
               },
             }}
-              variant="contained"
-              component="label"
-            >
-              Upload Video of your PR
-              <input
-                hidden
-                type="file"
-                onChange={handleFileChange}
-                accept=".mov,.mp4"
-              />
-            </Button>
-          )}
+            variant="contained"
+            component="label"
+          >
+            Upload Video of your PR
+            <input
+              hidden
+              type="file"
+              onChange={handleFileChangeWrapper}
+              accept=".mov,.mp4"
+            />
+          </Button>
+        )}
 
-          {showPrompt && (
-            <Grid item xs={12}>
-              <Typography variant="body1" color="white">
-                title. content. date. make sure they aren't empty. then submit.
-              </Typography>
-            </Grid>
-          )}
+        {showPrompt && (
+          <Grid item xs={12}>
+            <Typography variant="body1" color="white">
+              title. content. date. make sure they aren't empty. then submit.
+            </Typography>
+          </Grid>
+        )}
         {loading ? (
           <CircularProgress sx={{ alignSelf: 'center', marginBottom: '1em' }} />
         ) : (
@@ -215,11 +172,11 @@ function PrForm() {
               color: 'white',
               '&:hover': {
                 backgroundColor: 'white',
-                color: 'black'
-              }
+                color: 'black',
+              },
             }}
             variant="contained"
-            onClick={handleSubmit}
+            onClick={handleSubmitWrapper}
           >
             Submit PR
           </Button>

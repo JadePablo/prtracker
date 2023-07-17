@@ -8,6 +8,9 @@ const GymSchema = new Schema({
     gymName: {
         type: String,
         unique: [true,'this gym already exists'],
+    },
+    domain: {
+        type:String
     }
 
 })

@@ -1,96 +1,45 @@
 "use client";
 
-import { useState } from 'react';
-import Head from 'next/head'
+import React, { useState } from 'react';
 
-export default function Home() {
-  const [imageSrc, setImageSrc] = useState();
-  const [uploadData, setUploadData] = useState();
+const TinderCarousel = () => {
+  
+  const [profiles, setProfiles] = useState([
+    { name: 'John', value: null },
+    { name: 'Emma', value: null },
+    { name: 'Michael', value: null },
+    { name: 'Sophia', value: null },
+    { name: 'William', value: null }
+  ]);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-  /**
-   * handleOnChange
-   * @description Triggers when the file input changes (ex: when a file is selected)
-   */
+  const handleLeftSwipe = () => {
+    const updatedProfiles = [...profiles];
+    updatedProfiles[currentIndex].value = 1;
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % profiles.length);
+    setProfiles(updatedProfiles);
+  };
 
-  function handleOnChange(changeEvent) {
-    const reader = new FileReader();
-
-    reader.onload = function(onLoadEvent) {
-      setImageSrc(onLoadEvent.target.result);
-      setUploadData(undefined);
-    }
-
-    reader.readAsDataURL(changeEvent.target.files[0]);
-  }
-
-  /**
-   * handleOnSubmit
-   * @description Triggers when the main form is submitted
-   */
-
-  async function handleOnSubmit(event) {
-    event.preventDefault();
-
-    const form = event.currentTarget;
-    const fileInput = Array.from(form.elements).find(({ name }) => name === 'file');
-
-    const formData = new FormData();
-
-    for ( const file of fileInput.files ) {
-      console.log(file);
-      formData.append('file', file);
-    }
-
-    // formData.append('upload_preset', 'prs_preset');
-
-    // const data = await fetch('https://api.cloudinary.com/v1_1/prtracker/video/upload', {
-    //   method: 'POST',
-    //   body: formData
-    // }).then(r => r.json());
-
-    // console.log(data.url);
-    // setImageSrc(data.secure_url);
-    // setUploadData(data);
-  }
+  const handleRightSwipe = () => {
+    const updatedProfiles = [...profiles];
+    updatedProfiles[currentIndex].value = 2;
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % profiles.length);
+    setProfiles(updatedProfiles);
+  };
 
   return (
     <div>
-      <Head>
-        <title>Image Uploader</title>
-        <meta name="description" content="Upload your image to Cloudinary!" />
-      </Head>
-
-      <main>
-        <h1>
-          Image Uploader
-        </h1>
-
-        <p>
-          Upload your image to Cloudinary!
-        </p>
-
-        <form method="post" onChange={handleOnChange} onSubmit={handleOnSubmit}>
-          <p>
-            <input type="file" name="file" />
-          </p>
-          
-          <img src={imageSrc} />
-          
-          {imageSrc && !uploadData && (
-            <p>
-              <button>Upload Files</button>
-            </p>
-          )}
-
-          {uploadData && (
-            <code><pre>{JSON.stringify(uploadData, null, 2)}</pre></code>
-          )}
-        </form>
-      </main>
-
-      <footer>
-        <p>Find the tutorial on <a href="https://spacejelly.dev/">spacejelly.dev</a>!</p>
-      </footer>
+      <h1>Tinder Carousel</h1>
+      <div>
+        <button onClick={handleLeftSwipe}>Left</button>
+        <button onClick={handleRightSwipe}>Right</button>
+      </div>
+      <div>
+        <h2>{profiles[currentIndex].name}</h2>
+        <p>Value: {profiles[currentIndex].value}</p>
+      </div>
     </div>
-  )
-}
+  );
+};
+
+export default TinderCarousel;
