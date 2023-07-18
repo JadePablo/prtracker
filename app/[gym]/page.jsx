@@ -11,10 +11,11 @@ const GymHomePage = () => {
   const { data: session } = useSession();
   const [domain, setDomain] = useState('');
   const [isGoodPath, setPath] = useState(true);
-  
+  const[isBadBoy,setBadBoy] = useState();
   useEffect(() => {
     const fetchGym = async () => {
       const response = await fetch(`api/getDomain/${pathname.slice(1).replace(/%20/g, ' ')}`);
+      
       if (response.status !== 200) {
         setPath(false);
       } else {
@@ -25,6 +26,22 @@ const GymHomePage = () => {
 
     fetchGym();
   }, []);
+
+  useEffect(() => {
+    const checkBanStatus = async () => {
+      if (session?.user) {
+        const response = await fetch(`api/getBanStatus/${session.user.email}`);
+
+        if (response.status === 200) {
+          const isBanned = await response.json();
+          // Perform actions based on the ban status
+          setBadBoy(isBanned);
+        }
+      }
+    };
+
+    checkBanStatus();
+  }, [session]);
 
   function hasDomain(email, domain) {
     const domainExists = email.includes(domain);
@@ -49,11 +66,11 @@ const GymHomePage = () => {
           >
             <Typography>{pathname.slice(1)}</Typography>
           </Container>
-          {session?.user && hasDomain(session?.user.email, domain) ? (
+          {session?.user && hasDomain(session?.user.email, domain) && !isBadBoy ? (
             <PrForm />
           ) : (
             <Typography>
-              You must be logged in to submit a PR with an email that has '@{domain}' in it
+              You got to be unbanned and sign in with an email with '@{domain}'
             </Typography>
           )}
 

@@ -10,11 +10,10 @@ const Home = () => {
   return (
     <Container maxWidth="md" sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       <Welcome />
+      <HomepageFooter />
       <GymFeed />
-      <HomepageFooter sx={{ marginTop: 'auto' }} />
-
     </Container>
-  )
-}
+  );
+};
 
 export default Home;
