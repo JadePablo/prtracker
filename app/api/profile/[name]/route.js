@@ -9,11 +9,8 @@ export const GET = async (request, { params }) => {
     const {name} = params;
     const user_prs = await Pr.find({ lifter: name });
 
-    if (user_prs.length > 0) {
-      return new Response(JSON.stringify(user_prs), { status: 200 });
-    } else {
-      return new Response("No PRs associated with the email", { status: 404 });
-    }
+    return new Response(JSON.stringify(user_prs), { status: 200 });
+
   } catch (error) {
     return new Response("Failed to get your PRs", { status: 500 });
   }

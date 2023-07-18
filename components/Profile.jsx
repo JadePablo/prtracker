@@ -11,14 +11,15 @@ const Profile = () => {
 
   useEffect(() => {
     const fetchPrs = async () => {
-      const response = await fetch(`api/profile/${session.user.name}`);
+      const response = await fetch(`api/profile/${session?.user.name}`);
 
       const data = await response.json();
       setUserPrs(data);
+      console.log(userPrs);
     };
 
     fetchPrs();
-  }, [session]);
+  }, []);
 
   return (
     <Container>
@@ -27,11 +28,19 @@ const Profile = () => {
           <Container sx={{ backgroundColor: 'black', marginTop: '2rem'}}>
             <Typography sx={{ color: 'white' }}>your prs.</Typography>
           </Container>
-          {userPrs.map((pr) => (
-            <Grid item sx={{ margin: '1em' }} key={pr._id} xs={12} sm={6} md={6}>
-              <PrCard lift={pr.lift} lifter={pr.lifter} weight={pr.weight} date={pr.date} source={pr.source}/>
+          {userPrs.length === 0 ? (
+            <Typography sx={{ color: 'grey', fontSize: '2rem', textAlign: 'center', margin: '2rem' }}>
+              No recorded PRs
+            </Typography>
+          ) : (
+            <Grid container spacing={2}>
+              {userPrs.map((pr) => (
+                <Grid item xs={12} sm={6} md={6} key={pr._id}>
+                  <PrCard lift={pr.lift} lifter={pr.lifter} weight={pr.weight} date={pr.date} source={pr.source}/>
+                </Grid>
+              ))}
             </Grid>
-          ))}
+          )}
         </Container>
       )}
     </Container>
