@@ -7,6 +7,7 @@ const PrCard = (props) => {
   const date = new Date(props.date).toLocaleDateString(); // Convert date to local string format
   const source = props.source;
   const lift = props.lift;
+  
   return (
     <Card sx={{ backgroundColor: 'black', color: 'white', borderRadius: 0 }}>
       <CardActionArea>

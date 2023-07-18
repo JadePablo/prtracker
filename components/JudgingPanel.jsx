@@ -1,4 +1,6 @@
-import { useState, useEffect } from 'react';
+"use client";
+
+import React, { useState, useEffect } from 'react';
 import {
   Container,
   Typography,
@@ -6,6 +8,7 @@ import {
   Box,
   CircularProgress
 } from '@mui/material';
+import PrCard from './PrCard';
 
 const JudgingPanel = () => {
   const [prsToVerify, setPrsToVerify] = useState([]);
@@ -84,7 +87,17 @@ const JudgingPanel = () => {
       </Typography>
       {prsToVerify.length > 0 ? (
         <>
-          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2, mb: 2 }}>
+          <Box sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center', mt: 2, mb: 2 }}>
+            <Typography sx={{ marginBottom: '0.5em' }}>
+              {prsToVerify[0].lift}
+            </Typography>
+            <Typography sx={{ marginBottom: '0.5em' }}>
+              {prsToVerify[0].weight} lbs
+            </Typography>
+            <Typography sx={{ marginBottom: '0.5em' }}>
+              @ {prsToVerify[0].location}
+            </Typography>
+
             <video key={videoKey} width="320" height="240" controls>
               <source src={prsToVerify[0].source} type="video/mp4" />
             </video>
