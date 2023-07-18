@@ -1,16 +1,17 @@
 "use client";
 import { useSession } from 'next-auth/react';
-import { useEffect, useState } from 'react';
-import { Container, Typography } from '@mui/material';
+import { Container } from '@mui/material';
 import Forbidden from '@components/Forbidden';
 import JudgingPanel from '@components/JudgingPanel';
+
 
 const JudgingDashboard = () => {
   const { data: session } = useSession();
 
+
   return (
     <Container>
-      {session?.user?.email === 'jadepablo97@gmail.com' ? (
+      {session?.user?.email === process.env.NEXT_PUBLIC_JUDGECRED ? (
         <JudgingPanel />
       ) : (
         <Forbidden />
