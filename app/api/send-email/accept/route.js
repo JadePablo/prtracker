@@ -28,7 +28,7 @@ export const POST = async (request, { params }) => {
         //find the closest unbeaten verified lift at the same gym
         const queryCriteria = {
             location: pr.location,
-            verified: pr.verified,
+            verified: true,
             lift: pr.lift,
             weight: { $lt: pr.weight },
             beaten: false

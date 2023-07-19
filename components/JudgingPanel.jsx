@@ -8,7 +8,6 @@ import {
   Box,
   CircularProgress
 } from '@mui/material';
-import PrCard from './PrCard';
 
 const JudgingPanel = () => {
   const [prsToVerify, setPrsToVerify] = useState([]);
@@ -35,6 +34,14 @@ const JudgingPanel = () => {
       body: JSON.stringify({ email: prsToVerify[0].lifterEmail, id: prsToVerify[0]._id }),
     });
 
+    const email_response = await fetch('/api/send-email/ban', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ email: prsToVerify[0].lifterEmail , pr: prsToVerify[0]})
+    });
+
     if (response.status === 200) {
       // Remove the first element in prsToVerify
       setPrsToVerify((prevPrs) => prevPrs.slice(1));
@@ -54,6 +61,14 @@ const JudgingPanel = () => {
       body: JSON.stringify({ id: prsToVerify[0]._id, status: true }),
     });
 
+    const email_response = await fetch('/api/send-email/accept', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ email: prsToVerify[0].lifterEmail ,pr: prsToVerify[0]})
+    });
+    
     if (response.status === 200) {
       // Remove the first element in prsToVerify
       setPrsToVerify((prevPrs) => prevPrs.slice(1));
@@ -69,6 +84,14 @@ const JudgingPanel = () => {
 
     const response = await fetch(`api/verify/${id}`, {
       method: 'DELETE',
+    });
+
+    const email_response = await fetch('/api/send-email/reject', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ email: prsToVerify[0].lifterEmail , pr: prsToVerify[0]})
     });
 
     if (response.status === 200) {

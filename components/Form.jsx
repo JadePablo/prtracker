@@ -36,7 +36,8 @@ function PrForm() {
     date: currentDate, //default to today
     source: '', //form
     verified: false, //default to false
-    lifterEmail: session.user.email
+    lifterEmail: session.user.email,
+    beaten: false
   });
 
   function handleSetLift(e) {
