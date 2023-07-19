@@ -14,7 +14,9 @@ export default async function notifyVerification(email, pr) {
     if (email_response == 404) {
         return 404;
     }
-    const email_weaker_response = await notifyWeaker(email,pr.lift,pr.weight,pr.lifter);
 
-    return email_weaker_response;
+    return email_response;
+    // const email_weaker_response = await notifyWeaker(email,pr.lift,pr.weight,pr.lifter);
+
+    // return email_weaker_response;
 }
