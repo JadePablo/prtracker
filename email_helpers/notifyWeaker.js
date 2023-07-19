@@ -1,3 +1,5 @@
+import auto_email from "./auto_email.js";
+
 export default async function notifyWeaker(email,lift,weight,lifter) {
     const weakerMessage = `
     Someone beat your lift.

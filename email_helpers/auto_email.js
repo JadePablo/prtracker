@@ -1,7 +1,8 @@
 import nodemailer from 'nodemailer';
 
 export default async function auto_email(email,message) {
-    const transporter = nodemailer.createTransport({
+
+  const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
           user: process.env.NEXT_PUBLIC_JUDGECRED,

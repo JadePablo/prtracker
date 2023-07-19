@@ -50,6 +50,10 @@ const PrSchema = new Schema({
   },
   lifterEmail: {
     type: String
+  },
+  beaten: {
+    type: Boolean,
+    default: false
   }
 });
 

@@ -1,9 +1,11 @@
+import auto_email from "./auto_email.js";
+
 export default async function notifyRejection(email, pr) {
     const rejectionMessage = `
     Your Pr Submission:
     ${pr.lift}
     ${pr.weight}
-    @ ${pr.gymName} , ${pr.location}
+    @ ${pr.location}
 
     got rejected. These reasons might be why:
     - you didn't hit depth
