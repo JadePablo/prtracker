@@ -26,6 +26,10 @@ const JudgingPanel = () => {
 
   async function handleBan() {
     setLoading(true);
+
+    const vidSrc = prsToVerify[0].source;
+    let vid_id = new URL(vidSrc).pathname.split('/').pop().split('.')[0];
+
     const response = await fetch('api/verify/ban', {
       method: 'PATCH',
       headers: {
@@ -33,6 +37,8 @@ const JudgingPanel = () => {
       },
       body: JSON.stringify({ email: prsToVerify[0].lifterEmail, id: prsToVerify[0]._id }),
     });
+
+    const deleteVid_response = await fetch(`api/delete/${vid_id}`,{method: 'DELETE'});
 
     const email_response = await fetch('/api/send-email/ban', {
       method: 'POST',
@@ -81,10 +87,15 @@ const JudgingPanel = () => {
   async function handleBad() {
     setLoading(true);
     const id = prsToVerify[0]._id;
+    const vidSrc = prsToVerify[0].source;
 
     const response = await fetch(`api/verify/${id}`, {
       method: 'DELETE',
     });
+    
+    const vid_id = new URL(vidSrc).pathname.split('/').pop().split('.')[0];
+
+    const deleteVid_response = await fetch(`api/delete/${vid_id}`,{method: 'DELETE'});
 
     const email_response = await fetch('/api/send-email/reject', {
       method: 'POST',
