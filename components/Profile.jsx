@@ -11,7 +11,7 @@ const Profile = () => {
 
   useEffect(() => {
     const fetchPrs = async () => {
-      const response = await fetch(`api/profile/${session?.user.name}`);
+      const response = await fetch(`api/profile/${session?.user.email}`);
 
       const data = await response.json();
       setUserPrs(data);
@@ -33,7 +33,7 @@ const Profile = () => {
               No recorded PRs
             </Typography>
           ) : (
-            <Grid container spacing={2}>
+            <Grid container spacing={2} sx={{marginTop:'1em'}}>
               {userPrs.map((pr) => (
                 <Grid item xs={12} sm={6} md={6} key={pr._id}>
                   <PrCard lift={pr.lift} lifter={pr.lifter} weight={pr.weight} date={pr.date} source={pr.source}/>

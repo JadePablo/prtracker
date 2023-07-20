@@ -1,34 +1,23 @@
 "use client";
 
 import React from 'react';
+import Bestlift from '@components/Bestlift';
+import { Container } from '@mui/material';
 
-const CloudinaryDeleteButton = () => {
-  const handleDelete = async () => {
-    try {
-      const publicUrl = 'https://res.cloudinary.com/prtracker/video/upload/v1689854715/banana_k8odj6.mp4'; // Replace with your public URL
+const test = () => {
 
-      const publicID = new URL(publicUrl).pathname.split('/').pop().split('.')[0];
 
-      const response = await fetch(`api/delete/${publicID}`, {
-        method: 'DELETE'
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to delete the resource.');
-      }
-
-      const data = await response.json();
-      console.log('Delete response:', data);
-    } catch (error) {
-      console.error('Error occurred during deletion:', error);
-    }
-  };
+  const lift = "bench"; // Fill in the lift prop with the desired value
+  const weight = "225 lbs"; // Fill in the weight prop with the desired value
+  const location = "Gym Name"; // Fill in the location prop with the desired value
+  const date = "July 20, 2023"; // Fill in the date prop with the desired value
+  const vidSrc = "https://res.cloudinary.com/prtracker/video/upload/v1689597510/prs/eee3uop7svpmgmqyjzxa.mp4";
 
   return (
-    <button onClick={handleDelete}>
-      Delete Resource
-    </button>
+    <Container>
+      <Bestlift lift={lift} weight={weight} location={location} date={date} src={vidSrc}/>
+    </Container>
   );
 };
 
-export default CloudinaryDeleteButton;
+export default test;

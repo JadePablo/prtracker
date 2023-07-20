@@ -72,7 +72,7 @@ const GymHomePage = () => {
               padding: '1rem',
             }}
           >
-            <Typography>
+            <Typography variant="h2">
               {pathname
                 .slice(1)
                 .replace(/%20/g, ' ')

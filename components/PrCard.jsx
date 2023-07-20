@@ -13,14 +13,14 @@ const PrCard = (props) => {
       <CardActionArea>
         <CardContent>
           <Box textAlign="center">
-            <Typography>
-              {lifter}
-            </Typography>
-            <Typography>
+            <Typography variant="h3" sx={{ color: 'white', fontWeight: 'bold', alignSelf: 'flex-start' }}>
               {lift}
             </Typography>
-            <Typography>
+            <Typography variant="h4" sx={{ color: 'white', alignSelf: 'flex-start' }}>
               {weight} lbs
+            </Typography>
+            <Typography>
+              {lifter}
             </Typography>
             <Typography>
               on {date}
