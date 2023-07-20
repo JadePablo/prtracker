@@ -29,7 +29,7 @@ const Nav = () => {
         <Link href="/">
           <Button color="inherit">
             <Typography variant="h6" component="p" style={{ color: 'white', textTransform: 'lowercase' }}>
-              prtracker
+              PRTRACKER
             </Typography>
           </Button>
         </Link>

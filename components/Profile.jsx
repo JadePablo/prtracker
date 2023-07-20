@@ -25,8 +25,8 @@ const Profile = () => {
     <Container>
       {session?.user && (
         <Container>
-          <Container sx={{ backgroundColor: 'black', marginTop: '2rem'}}>
-            <Typography sx={{ color: 'white' }}>your prs.</Typography>
+          <Container sx={{ backgroundColor: 'black', marginTop: '2rem', padding: '1rem'}}>
+            <Typography sx={{ color: 'white', margin: '1rem 0' }}>your prs.</Typography>
           </Container>
           {userPrs.length === 0 ? (
             <Typography sx={{ color: 'grey', fontSize: '2rem', textAlign: 'center', margin: '2rem' }}>
