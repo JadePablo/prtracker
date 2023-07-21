@@ -1,14 +1,14 @@
+"use client";
+
 import React from "react";
 import { Card, CardContent, Typography, CardActionArea, Box } from '@mui/material';
-import Link from 'next/link';
 
-const PrCard = (props) => {
+const ProfilePrCard = (props) => {
   const lifter = props.lifter;
   const weight = props.weight;
   const date = new Date(props.date).toLocaleDateString(); // Convert date to local string format
   const source = props.source;
   const lift = props.lift;
-  const id = props.id;
   
   return (
     <Card sx={{ backgroundColor: 'black', color: 'white', borderRadius: 0 }}>
@@ -21,25 +21,9 @@ const PrCard = (props) => {
             <Typography variant="h4" sx={{ color: 'white', alignSelf: 'flex-start' }}>
               {weight} lbs
             </Typography>
-            <Link href={`/profileVisit/${id}`} passHref>
-              <Typography
-                component="a"
-                sx={{
-                  color: 'white',
-                  fontWeight: 'bold',
-                  textDecoration: 'none',
-                  '&:hover': {
-                    textDecoration: 'none',
-                  },
-                  '&:visited': {
-                    color: 'grey',
-                  },
-                }}
-              >
+              <Typography>
                 {lifter}
               </Typography>
-            </Link>
-
             <Typography>
               on {date}
             </Typography>
@@ -58,4 +42,4 @@ const PrCard = (props) => {
   );
 }
 
-export default PrCard;
+export default ProfilePrCard;

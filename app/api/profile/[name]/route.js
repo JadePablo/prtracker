@@ -11,6 +11,7 @@ export const GET = async (request, { params }) => {
     await connectToDB();
 
     const {name} = params;
+
     const user_prs = await Pr.find({ lifterEmail: name, verified: true });
 
     const prCount = countPrs(user_prs);

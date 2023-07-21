@@ -1,44 +1,37 @@
 "use client";
 
-import { useState } from 'react';
-import { Dialog, DialogContent, List, ListItem, ListItemText, Button } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { Container, Typography, Grid } from '@mui/material';
+import { usePathname } from 'next/navigation';
 
-const FixedSizeScrollableList = () => {
-  const [open, setOpen] = useState(false);
+const ProfileVisit = (props) => {
+  const pathname = usePathname();
+  const [userPrs, setUserPrs] = useState([]);
+  const [bestSquat, set_bestSquat] = useState();
+  const [bestDeadlift, set_bestDeadlift] = useState();
+  const [bestBench, set_bestBench] = useState();
 
-  const items = [
-    'Item 1',
-    'Item 2',
-    'Item 3',
-    // Add more items as needed
-  ];
+  const [squatCount, set_squatCount] = useState();
+  const [benchCount, set_benchCount] = useState();
+  const [deadliftCount, set_deadliftCount] = useState();
 
-  const handleOpen = () => {
-    setOpen(true);
-  };
+  const [unbeatenPrs, set_unbeatenPrs] = useState();
+  
+  //64b53570ad2cba66d45ff53a
+  useEffect(() => {
+    const fetchPrs = async () => {
+      const response = await fetch(`api/profileVisit/64b53570ad2cba66d45ff53a`);
+      const data = await response.json();
+    };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+    fetchPrs();
+  }, []);
 
   return (
-    <div>
-      <Button variant="outlined" onClick={handleOpen}>
-        Open Fixed-Size List
-      </Button>
-      <Dialog open={open} onClose={handleClose} maxWidth="sm" fullWidth>
-        <DialogContent style={{ overflowY: 'scroll', height: '300px' }}>
-          <List>
-            {items.map((item, index) => (
-              <ListItem key={index}>
-                <ListItemText primary={item} />
-              </ListItem>
-            ))}
-          </List>
-        </DialogContent>
-      </Dialog>
-    </div>
+    <Container>
+      <Typography>testing</Typography>
+    </Container>
   );
 };
 
-export default FixedSizeScrollableList;
+export default ProfileVisit;

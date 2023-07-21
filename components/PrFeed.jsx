@@ -85,6 +85,7 @@ const PrFeed = () => {
                 weight={pr.weight}
                 date={pr.date}
                 source={pr.source}
+                id={pr._id}
               />
             </Grid>
           ))}

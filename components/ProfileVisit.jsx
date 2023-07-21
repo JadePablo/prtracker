@@ -1,15 +1,18 @@
 "use client";
 
 import { useEffect, useState } from 'react';
-import { useSession } from 'next-auth/react';
 import { Container, Typography, Grid } from '@mui/material';
-import PrCard from './PrCard';
-import Bestlift from './BestLift';
+import { usePathname } from 'next/navigation';
+
 import FixedSizeScrollableList from './FixedSizeScrollableList';
+import Bestlift from './BestLift';
+import PrCard from './PrCard';
 import ProfilePrCard from './ProfilePrCard';
 
-const Profile = () => {
-  const { data: session } = useSession();
+const ProfileVisit = () => {
+  const pathname = usePathname();
+  const lastSlashIndex = pathname.lastIndexOf('/');
+  const id = pathname.substring(lastSlashIndex + 1);
   const [userPrs, setUserPrs] = useState([]);
   const [bestSquat, set_bestSquat] = useState();
   const [bestDeadlift, set_bestDeadlift] = useState();
@@ -20,30 +23,43 @@ const Profile = () => {
   const [deadliftCount, set_deadliftCount] = useState();
 
   const [unbeatenPrs, set_unbeatenPrs] = useState();
+  const [profileNotFound, setProfileNotFound] = useState(false);
 
   useEffect(() => {
     const fetchPrs = async () => {
-      const response = await fetch(`api/profile/${session?.user.email}`);
-      const data = await response.json();
-      setUserPrs(data.user_prs);
-      set_bestSquat(data.bestLifts.squat);
-      set_bestBench(data.bestLifts.bench);
-      set_bestDeadlift(data.bestLifts.deadlift);
-      set_squatCount(data.prCount.squat);
-      set_benchCount(data.prCount.bench);
-      set_deadliftCount(data.prCount.deadlift);
-      set_unbeatenPrs(data.unbeatenPrs);
+        try {
+            const response = await fetch(`/api/profileVisit/${id}`);
+            if (!response.ok) {
+            setProfileNotFound(true);
+            return;
+            }
+            const data = await response.json();
+            setUserPrs(data.user_prs);
+            set_bestSquat(data.bestLifts.squat);
+            set_bestBench(data.bestLifts.bench);
+            set_bestDeadlift(data.bestLifts.deadlift);
+            set_squatCount(data.prCount.squat);
+            set_benchCount(data.prCount.bench);
+            set_deadliftCount(data.prCount.deadlift);
+            set_unbeatenPrs(data.unbeatenPrs);
+        } catch (error) {
+            console.log(error);
+        }
+
     };
 
     fetchPrs();
-  }, [session]);
-
+  }, []);
   return (
-    <Container>
-      {session?.user && (
+<Container>
+      { profileNotFound ? (
+        <Typography sx={{ fontSize: '2rem', color: 'grey', textAlign: 'center', margin: '2rem' }}>
+          This profile doesn't exist
+        </Typography>
+      ): (
         <Container>
           <Container sx={{ backgroundColor: 'black', marginTop: '2rem', padding: '1rem'}}>
-            <Typography variant="h2" sx={{ color: 'white', margin: '1rem 0' }}>your stats.</Typography>
+            <Typography variant="h2" sx={{ color: 'white', margin: '1rem 0' }}>their stats.</Typography>
           </Container>
           {userPrs.length === 0 ? (
             <Typography sx={{ color: 'grey', fontSize: '2rem', textAlign: 'center', margin: '2rem' }}>
@@ -120,4 +136,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default ProfileVisit;
