@@ -1,23 +1,44 @@
 "use client";
 
-import React from 'react';
-import Bestlift from '@components/Bestlift';
-import { Container } from '@mui/material';
+import { useState } from 'react';
+import { Dialog, DialogContent, List, ListItem, ListItemText, Button } from '@mui/material';
 
-const test = () => {
+const FixedSizeScrollableList = () => {
+  const [open, setOpen] = useState(false);
 
+  const items = [
+    'Item 1',
+    'Item 2',
+    'Item 3',
+    // Add more items as needed
+  ];
 
-  const lift = "bench"; // Fill in the lift prop with the desired value
-  const weight = "225 lbs"; // Fill in the weight prop with the desired value
-  const location = "Gym Name"; // Fill in the location prop with the desired value
-  const date = "July 20, 2023"; // Fill in the date prop with the desired value
-  const vidSrc = "https://res.cloudinary.com/prtracker/video/upload/v1689597510/prs/eee3uop7svpmgmqyjzxa.mp4";
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
-    <Container>
-      <Bestlift lift={lift} weight={weight} location={location} date={date} src={vidSrc}/>
-    </Container>
+    <div>
+      <Button variant="outlined" onClick={handleOpen}>
+        Open Fixed-Size List
+      </Button>
+      <Dialog open={open} onClose={handleClose} maxWidth="sm" fullWidth>
+        <DialogContent style={{ overflowY: 'scroll', height: '300px' }}>
+          <List>
+            {items.map((item, index) => (
+              <ListItem key={index}>
+                <ListItemText primary={item} />
+              </ListItem>
+            ))}
+          </List>
+        </DialogContent>
+      </Dialog>
+    </div>
   );
 };
 
-export default test;
+export default FixedSizeScrollableList;

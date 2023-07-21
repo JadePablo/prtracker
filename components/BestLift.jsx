@@ -9,21 +9,23 @@ const Bestlift = (props) => {
   const source = props.src;
 
   return (
-    <Container sx={{ backgroundColor: 'black', padding: '1rem', borderRadius: '4px', position: 'relative', display: 'flex', flexDirection: 'column' }}>
-      <Typography variant="h3" sx={{ color: 'white', fontWeight: 'bold', alignSelf: 'flex-start' }}>
-        {lift} all-time PR
-      </Typography>
-      <Typography variant="body1" sx={{ color: 'white', fontSize: '1rem', alignSelf: 'flex-start' }}>
-        {weight}
-      </Typography>
-      <Typography variant="body1" sx={{ color: 'white', fontSize: '1rem', alignSelf: 'flex-start' }}>
-        {location}
-      </Typography>
-      <Typography variant="body1" sx={{ color: 'white', fontSize: '1rem', alignSelf: 'flex-start' }}>
-        {date}
-      </Typography>
-      <Box display="flex" justifyContent="flex-start" width="50%">
-        <video width="100%" height="auto" controls>
+    <Container sx={{ backgroundColor: 'black', padding: '1rem', borderRadius: '4px', position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginTop: '16px' }}>
+      <Box sx={{ flex: '1 1 auto' }}>
+        <Typography variant="h3" sx={{ color: 'white', fontWeight: 'bold' }}>
+          {lift} PR
+        </Typography>
+        <Typography variant="body1" sx={{ color: 'white', fontSize: '1rem' }}>
+          {weight}
+        </Typography>
+        <Typography variant="body1" sx={{ color: 'white', fontSize: '1rem' }}>
+          {location}
+        </Typography>
+        <Typography variant="body1" sx={{ color: 'white', fontSize: '1rem' }}>
+          {new Date(date).toLocaleDateString()}
+        </Typography>
+      </Box>
+      <Box display="flex" justifyContent="flex-start" alignItems="center" width="100%" height="100%">
+        <video width="100%" height="200px" controls>
           <source src={source} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
