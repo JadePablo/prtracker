@@ -1,6 +1,7 @@
 import React from 'react';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
+import Link from 'next/link';
 
 const Welcome = () => {
   const containerStyle = {
@@ -8,7 +9,7 @@ const Welcome = () => {
     padding: '1rem',
     color: 'white',
     width: '100%',
-    marginTop: '1rem', // Add margin at the top
+    marginTop: '1rem', 
   };
 
   const typographyStyle = {
@@ -17,12 +18,31 @@ const Welcome = () => {
 
   return (
     <Container sx={containerStyle}>
-      <Typography variant="h6" component="div" gutterBottom style={typographyStyle}>
-        ranked prs for squat, bench deadlift.
-      </Typography>
+      <Typography variant="h2" sx={{ color: 'white', margin: '1rem 0' }}>ranked prs for squat, bench, deadlift.</Typography>
+
       <Typography variant="body2" component="div" style={typographyStyle}>
-        lifts are verified by select employees for each gym.
+        lifts are verified before made public.
+        <Link href="/faq">
+        <Typography
+          component="a"
+          sx={{
+            color: 'white',
+            fontWeight: 'bold',
+            textDecoration: 'none',
+            '&:hover': {
+              textDecoration: 'none',
+            },
+            '&:visited': {
+              color: 'grey',
+            },
+          }}
+        >
+          click here for submission process & guidelines
+        </Typography>      
+      </Link>
       </Typography>
+
+
     </Container>
   );
 };
