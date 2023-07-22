@@ -1,3 +1,5 @@
+"use client";
+
 import React from 'react';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
@@ -24,7 +26,6 @@ const Welcome = () => {
         lifts are verified before made public.
         <Link href="/faq">
         <Typography
-          component="a"
           sx={{
             color: 'white',
             fontWeight: 'bold',
