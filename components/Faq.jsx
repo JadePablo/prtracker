@@ -23,6 +23,7 @@ const Faq = () => {
           <ul>
             <li>depth isn't reached</li>
             <li>you pulled sumo</li>
+            <li>you used a slingshot</li>
             <li>you cheated</li>
           </ul>
         </Typography>
